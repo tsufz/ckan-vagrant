@@ -12,10 +12,10 @@ echo "installing dependencies available via apt-get"
 sudo apt-get install -y nginx apache2 libapache2-mod-wsgi libpq5
 
 echo "downloading the CKAN package"
-wget -q http://packaging.ckan.org/python-ckan_2.0_amd64.deb
+wget -q http://packaging.ckan.org/python-ckan_2.4-precise_amd64.deb
 
 echo "installing the CKAN package"
-sudo dpkg -i python-ckan_2.0_amd64.deb
+sudo dpkg -i python-ckan_2.4-precise_amd64.deb
 
 echo "Preventing NGINX from being started on a reboot"
 sudo update-rc.d -f nginx disable
