@@ -69,10 +69,10 @@ sudo service apache2 restart
 echo "creating an admin user"
 source /usr/lib/ckan/default/bin/activate
 cd /usr/lib/ckan/default/src/ckan
-paster --plugin=ckan user add admin email=admin@email.org password=pass -c /etc/ckan/default/production.ini
-paster --plugin=ckan sysadmin add admin -c /etc/ckan/default/production.ini
+sudo paster --plugin=ckan user add admin email=admin@email.org password=pass -c /etc/ckan/default/production.ini
+sudo paster --plugin=ckan sysadmin add admin -c /etc/ckan/default/production.ini
 
 echo "loading some multilingual test data"
-paster --plugin=ckan create-test-data translations -c /etc/ckan/default/production.ini
+sudo paster --plugin=ckan create-test-data translations -c /etc/ckan/default/production.ini
 
 echo "you should now have a running instance on http://ckan.lo"
