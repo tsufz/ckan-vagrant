@@ -29,7 +29,7 @@ echo "install postgresql and jetty"
 sudo apt-get install -y postgresql solr-jetty openjdk-6-jdk
 
 echo "copying jetty configuration"
-cp /vagrant/vagrant/jetty /etc/default/jetty
+sudo cp /vagrant/vagrant/jetty /etc/default/jetty
 sudo service jetty start
 
 echo "linking the solr schema file"
