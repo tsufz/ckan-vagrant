@@ -58,6 +58,7 @@ sudo -u postgres createdb -O ckan_default ckan_default -E utf-8
 echo "initialize CKAN database"
 sudo cp /vagrant/vagrant/package_production.ini /etc/ckan/default/production.ini
 sudo ckan db init
+sudo cp /vagrant/vagrant/hosts /etc/hosts
 
 echo "enabling filestore with local storage"
 sudo mkdir -p /var/lib/ckan/default
