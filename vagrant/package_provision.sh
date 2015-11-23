@@ -56,7 +56,7 @@ sudo -u postgres psql -c "ALTER USER ckan_default with password 'pass'"
 sudo -u postgres createdb -O ckan_default ckan_default -E utf-8
 
 echo "initialize CKAN database"
-cp /vagrant/vagrant/package_production.ini /etc/ckan/default/production.ini
+sudo cp /vagrant/vagrant/package_production.ini /etc/ckan/default/production.ini
 sudo ckan db init
 
 echo "enabling filestore with local storage"
