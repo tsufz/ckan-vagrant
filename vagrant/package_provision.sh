@@ -53,10 +53,15 @@ sudo service jetty restart
 echo "create a CKAN database in postgresql"
 sudo -u postgres createuser -S -D -R ckan_default
 sudo -u postgres psql -c "ALTER USER ckan_default with password 'pass'"
+sudo -u postgres createuser -S -D -R datastore_default
+sudo -u postgres psql -c "ALTER USER datastore_default with password 'pass'"
+sudo -u postgres createdb -O ckan_default datastore_default -E utf-8
 sudo -u postgres createdb -O ckan_default ckan_default -E utf-8
+sudo cp /vagrant/vagrant/package_production.ini /etc/ckan/default/production.ini
+sudo ckan datastore set-permissions | sudo -u postgres psql --set ON_ERROR_STOP=1
+
 
 echo "initialize CKAN database"
-sudo cp /vagrant/vagrant/package_production.ini /etc/ckan/default/production.ini
 sudo ckan db init
 
 echo "enabling filestore with local storage"
