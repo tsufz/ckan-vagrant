@@ -15,7 +15,7 @@ echo "Downloading the CKAN package"
 sudo wget -q http://packaging.ckan.org/python-ckan_2.4-precise_amd64.deb
 
 echo "Installing the CKAN package"
-sudo dpkg -i /vagrant/vagrant/python-ckan_2.4-precise_amd64.deb
+sudo dpkg -i python-ckan_2.4-precise_amd64.deb
 
 echo "Preventing NGINX from being started on a reboot"
 sudo update-rc.d -f nginx disable
