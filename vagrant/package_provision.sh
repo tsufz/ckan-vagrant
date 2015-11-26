@@ -9,7 +9,7 @@ echo "Updating the package manager"
 sudo apt-get update
 
 echo "Installing dependencies available via apt-get"
-sudo apt-get install -qq -y nginx apache2 libapache2-mod-wsgi libpq5
+sudo apt-get install -qq -y nginx apache2 libapache2-mod-wsgi libpq5 curl
 
 echo "Downloading the CKAN package"
 sudo wget -q http://packaging.ckan.org/python-ckan_2.4-precise_amd64.deb
@@ -81,7 +81,7 @@ cd /usr/lib/ckan/default/src/ckan
 paster --plugin=ckan user add admin email=admin@email.org password=pass -c /etc/ckan/default/production.ini
 paster --plugin=ckan sysadmin add admin -c /etc/ckan/default/production.ini
 
-echo "Loading some test data"
-paster --plugin=ckan create-test-data -c /etc/ckan/default/production.ini
+echo "Creating NORMAN dataset"
+sudo bash /vagrant/vagrant/normandata.sh
 
-echo "you should now have a running instance on http://ckan.lo"
+echo "You should now have a running instance on http://ckan.lo"
