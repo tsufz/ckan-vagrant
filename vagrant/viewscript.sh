@@ -1,3 +1,4 @@
+#!/bin/bash
 echo "Installing git and cloning repositories"
 source /usr/lib/ckan/default/bin/activate
 cd /usr/lib/ckan/default/src

@@ -15,5 +15,9 @@ curl -s -H'Authorization: tester' 'http://localhost/api/action/resource_create' 
 --form package_id=norman_collaborative_trial_targets_and_suspects \
 --form name="GC Targets and suspects" > /dev/null
 
-sudo ckan user remove tester
+echo "Installing lftp and realpath"
+sudo apt-get install lftp realpath
 
+sudo bash /vagrant/vagrant/metabolights.sh
+
+sudo ckan user remove tester
