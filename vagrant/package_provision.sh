@@ -81,6 +81,6 @@ paster --plugin=ckan user add admin email=admin@email.org password=pass -c /etc/
 paster --plugin=ckan sysadmin add admin -c /etc/ckan/default/production.ini
 
 # echo "Creating NORMAN dataset"
-# sudo bash /vagrant/vagrant/normandata.sh
+sudo bash /vagrant/vagrant/normandata.sh
 
 echo "You should now have a running instance on http://ckan.lo"
