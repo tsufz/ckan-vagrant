@@ -16,8 +16,8 @@ curl -s -H'Authorization: tester' 'http://localhost/api/action/resource_create' 
 --form name="GC Targets and suspects" > /dev/null
 
 echo "Installing lftp and realpath"
-sudo apt-get install lftp realpath
+#sudo apt-get install -qq -y lftp realpath
 
-sudo bash /vagrant/vagrant/metabolights.sh
+#sudo bash /vagrant/vagrant/metabolights.sh
 
 sudo ckan user remove tester

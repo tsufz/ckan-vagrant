@@ -3,7 +3,7 @@
 cd /home/vagrant
 
 echo "Retrieving metabolights data"
-lftp -c mirror --no-empty-dirs --include="/[iasm]_.*\.[tc][xs][tv]$" ftp://ftp.ebi.ac.uk/pub/databases/metabolights/studies/public/
+lftp -c mirror --no-empty-dirs --include="/[im]_.*\.[tc][xs][tv]$" ftp://ftp.ebi.ac.uk/pub/databases/metabolights/studies/public/
 
 echo "Adding metabolights maf files to CKAN"
 

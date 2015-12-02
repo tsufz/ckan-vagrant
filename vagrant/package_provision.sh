@@ -6,16 +6,16 @@ export LC_ALL="en_US.UTF-8"
 sudo locale-gen en_US.UTF-8
 
 echo "Updating the package manager"
-sudo apt-get update
+sudo apt-get update -qq
 
 echo "Installing dependencies available via apt-get"
 sudo apt-get install -qq -y nginx apache2 libapache2-mod-wsgi libpq5 curl
 
 echo "Downloading the CKAN package"
-sudo wget -q http://packaging.ckan.org/python-ckan_2.4-precise_amd64.deb
+sudo wget -q http://packaging.ckan.org/python-ckan_2.4-trusty_amd64.deb
 
 echo "Installing the CKAN package"
-sudo dpkg -i python-ckan_2.4-precise_amd64.deb
+sudo dpkg -i python-ckan_2.4-trusty_amd64.deb
 
 echo "Preventing NGINX from being started on a reboot"
 sudo update-rc.d -f nginx disable
@@ -26,7 +26,7 @@ sudo cp /vagrant/vagrant/package_ckan_default.conf /etc/apache2/sites-available/
 sudo service apache2 restart
 
 echo "Installing postgresql and jetty"
-sudo apt-get install -y postgresql solr-jetty openjdk-6-jdk
+sudo apt-get install -qq -y postgresql solr-jetty openjdk-6-jdk
 
 echo "Copying jetty configuration"
 sudo cp /vagrant/vagrant/jetty /etc/default/jetty
@@ -72,8 +72,7 @@ sudo chown www-data /var/lib/ckan/default
 sudo chmod u+rwx /var/lib/ckan/default
 sudo chown --recursive www-data /etc/ckan/default/
 sudo chmod --recursive u+rwx /etc/ckan/default/
-sudo a2dissite default
-sudo service apache2 reload
+sudo service apache2 restart
 
 echo "Creating an admin user"
 source /usr/lib/ckan/default/bin/activate
@@ -81,7 +80,7 @@ cd /usr/lib/ckan/default/src/ckan
 paster --plugin=ckan user add admin email=admin@email.org password=pass -c /etc/ckan/default/production.ini
 paster --plugin=ckan sysadmin add admin -c /etc/ckan/default/production.ini
 
-echo "Creating NORMAN dataset"
-sudo bash /vagrant/vagrant/normandata.sh
+# echo "Creating NORMAN dataset"
+# sudo bash /vagrant/vagrant/normandata.sh
 
 echo "You should now have a running instance on http://ckan.lo"

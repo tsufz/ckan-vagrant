@@ -17,6 +17,6 @@ sudo python ez_setup.py > /dev/null
 sudo rm *.zip
 
 echo "Installing views"
-pip install ./ckanext-viewhelpers
-pip install ./ckanext-basiccharts
-pip install ./ckanext-dashboard
+pip -q install ./ckanext-viewhelpers
+pip -q install ./ckanext-basiccharts
+pip -q install ./ckanext-dashboard
