@@ -66,6 +66,9 @@ sudo ckan datastore set-permissions | sudo -u postgres psql --set ON_ERROR_STOP=
 echo "Initializing CKAN database"
 sudo ckan db init
 
+paster --plugin=ckanext-harvest harvester initdb --config=/etc/ckan/default/production.ini
+
+
 echo "Enabling filestore with local storage"
 sudo mkdir -p /var/lib/ckan/default
 sudo chown www-data /var/lib/ckan/default
@@ -79,8 +82,12 @@ source /usr/lib/ckan/default/bin/activate
 cd /usr/lib/ckan/default/src/ckan
 paster --plugin=ckan user add admin email=admin@email.org password=pass -c /etc/ckan/default/production.ini
 paster --plugin=ckan sysadmin add admin -c /etc/ckan/default/production.ini
+paster --plugin=ckan user add harvest email=harvest@email.org password=none -c /etc/ckan/default/production.ini
+paster --plugin=ckan sysadmin add harvest -c /etc/ckan/default/production.ini
 
 # echo "Creating NORMAN dataset"
-sudo bash /vagrant/vagrant/normandata.sh
+# sudo bash /vagrant/vagrant/normandata.sh
+
+sudo reboot
 
 echo "You should now have a running instance on http://ckan.lo"
