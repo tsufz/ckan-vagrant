@@ -1,3 +1,5 @@
+source /usr/lib/ckan/default/bin/activate
+cd /usr/lib/ckan/default/src
 sudo ckan create-test-data user -c /etc/ckan/default/production.ini
 
 curl -s -H'Authorization: tester' 'http://localhost/api/action/package_create' \
@@ -16,8 +18,6 @@ curl -s -H'Authorization: tester' 'http://localhost/api/action/resource_create' 
 --form name="GC Targets and suspects" > /dev/null
 
 echo "Installing lftp and realpath"
-#sudo apt-get install -qq -y lftp realpath
+sudo apt-get install -qq -y lftp
 
 #sudo bash /vagrant/vagrant/metabolights.sh
-
-sudo ckan user remove tester

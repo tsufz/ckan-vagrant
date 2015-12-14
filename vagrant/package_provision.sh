@@ -86,8 +86,8 @@ paster --plugin=ckan user add harvest email=harvest@email.org password=none -c /
 paster --plugin=ckan sysadmin add harvest -c /etc/ckan/default/production.ini
 
 # echo "Creating NORMAN dataset"
-# sudo bash /vagrant/vagrant/normandata.sh
-
-sudo reboot
+sudo bash /vagrant/vagrant/normandata.sh
 
 echo "You should now have a running instance on http://ckan.lo"
+
+#sudo reboot
