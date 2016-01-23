@@ -20,4 +20,4 @@ curl -s -H'Authorization: tester' 'http://localhost/api/action/resource_create' 
 echo "Installing lftp and realpath"
 sudo apt-get install -qq -y lftp
 
-#sudo bash /vagrant/vagrant/metabolights.sh
+# sudo bash /vagrant/vagrant/metabolights.sh
