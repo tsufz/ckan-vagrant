@@ -1,14 +1,9 @@
 #!/bin/bash
-echo "Installing git and cloning repositories"
 source /usr/lib/ckan/default/bin/activate
 cd /usr/lib/ckan/default/src
+
+echo "Installing git"
 sudo apt-get install -qq -y git
-sudo git clone -q https://github.com/ckan/ckanext-harvest
-sudo git clone -q https://github.com/openresearchdata/ckanext-oaipmh
-sudo git clone -q https://github.com/XVTSolutions/ckanext-extend_search
-
-
-echo "Installing python setuptools"
 sudo wget -q https://bootstrap.pypa.io/ez_setup.py
 sudo python ez_setup.py > /dev/null
 sudo rm *.zip
@@ -24,9 +19,13 @@ sudo /usr/lib/ckan/default/bin/pip -q install -e 'git+https://github.com/ckan/ck
 sudo /usr/lib/ckan/default/bin/pip -q install -e 'git+https://github.com/datagovuk/ckanext-hierarchy.git#egg=ckanext-hierarchy'
 sudo /usr/lib/ckan/default/bin/pip -q install -e 'git+https://github.com/ckan/ckanext-pdfview.git#egg=ckanext-pdfview'
 sudo /usr/lib/ckan/default/bin/pip -q install -e 'git+https://github.com/okfn/ckanext-issues#egg=ckanext-issues'
-sudo /usr/lib/ckan/default/bin/pip -q install -e 'git+https://github.com/openresearchdata/ckanext-ord-hierarchy#egg=ckanext-ord-hierarchy'
+sudo /usr/lib/ckan/default/bin/pip -q install -e 'git+https://github.com/kata-csc/ckanext-ytp-comments.git@etsin#egg=ckanext-ytp-comments'
+sudo apt-get install -qq -y libxml2 libxslt-dev python-dev zlib1g-dev
+sudo /usr/lib/ckan/default/bin/easy_install lxml
 
 echo "Installing search extension"
+sudo /usr/lib/ckan/default/bin/pip -q install pytz
+sudo /usr/lib/ckan/default/bin/pip -q install -e 'git+https://github.com/XVTSolutions/ckanext-extend_search#egg=ckanext-extend_search'
 
 echo "Installing current version of redis"
 cd /home/vagrant/
@@ -39,13 +38,5 @@ cd utils
 echo -ne '\n' | sudo ./install_server.sh
 
 echo "Installing harvest views"
-cd /usr/lib/ckan/default/src
-cd ./ckanext-harvest
-sudo /usr/lib/ckan/default/bin/pip install -r pip-requirements.txt
-cd ..
-sudo /usr/lib/ckan/default/bin/pip install -q ./ckanext-harvest
-
-
-
-echo "Installing prerequisites for oaipmh"
-sudo apt-get install -qq -y zlib1g-dev libxml2-dev libxslt1-dev python-dev 
+sudo /usr/lib/ckan/default/bin/pip -q install pika
+sudo /usr/lib/ckan/default/bin/pip -q install -e 'git+https://github.com/ckan/ckanext-harvest#egg=ckanext-harvest'

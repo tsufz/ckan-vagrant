@@ -9,7 +9,8 @@ echo "Updating the package manager"
 sudo apt-get update -qq
 
 echo "Installing dependencies available via apt-get"
-sudo apt-get install -qq -y nginx apache2 libapache2-mod-wsgi libpq5 curl
+export DEBIAN_FRONTEND=noninteractive
+sudo apt-get install -qq -y nginx apache2 libapache2-mod-wsgi libpq5 curl jq
 
 echo "Downloading the CKAN package"
 sudo wget -q http://packaging.ckan.org/python-ckan_2.4-trusty_amd64.deb
@@ -34,18 +35,7 @@ sudo service jetty start
 
 echo "Linking the solr schema file"
 sudo mv /etc/solr/conf/schema.xml /etc/solr/conf/schema.xml.bak
-sudo ln -s /usr/lib/ckan/default/src/ckan/ckanext/multilingual/solr/dutch_stop.txt /etc/solr/conf/dutch_stop.txt
-sudo ln -s /usr/lib/ckan/default/src/ckan/ckanext/multilingual/solr/english_stop.txt /etc/solr/conf/english_stop.txt
-sudo ln -s /usr/lib/ckan/default/src/ckan/ckanext/multilingual/solr/fr_elision.txt /etc/solr/conf/fr_elision.txt
-sudo ln -s /usr/lib/ckan/default/src/ckan/ckanext/multilingual/solr/french_stop.txt /etc/solr/conf/french_stop.txt
-sudo ln -s /usr/lib/ckan/default/src/ckan/ckanext/multilingual/solr/german_stop.txt /etc/solr/conf/german_stop.txt
-sudo ln -s /usr/lib/ckan/default/src/ckan/ckanext/multilingual/solr/greek_stopwords.txt /etc/solr/conf/greek_stopwords.txt
-sudo ln -s /usr/lib/ckan/default/src/ckan/ckanext/multilingual/solr/italian_stop.txt /etc/solr/conf/italian_stop.txt
-sudo ln -s /usr/lib/ckan/default/src/ckan/ckanext/multilingual/solr/polish_stop.txt /etc/solr/conf/polish_stop.txt
-sudo ln -s /usr/lib/ckan/default/src/ckan/ckanext/multilingual/solr/portuguese_stop.txt /etc/solr/conf/portuguese_stop.txt
-sudo ln -s /usr/lib/ckan/default/src/ckan/ckanext/multilingual/solr/romanian_stop.txt /etc/solr/conf/romanian_stop.txt
-sudo ln -s /usr/lib/ckan/default/src/ckan/ckanext/multilingual/solr/spanish_stop.txt /etc/solr/conf/spanish_stop.txt
-sudo ln -s /usr/lib/ckan/default/src/ckan/ckanext/multilingual/solr/schema.xml /etc/solr/conf/schema.xml
+sudo ln -s /usr/lib/ckan/default/src/ckan/ckan/config/solr/schema.xml /etc/solr/conf/schema.xml
 # sudo ln -s /usr/lib/ckan/default/src/ckan/ckan/config/solr/schema-2.0.xml /etc/solr/conf/schema.xml
 
 sudo service jetty restart
@@ -64,10 +54,11 @@ sudo bash /vagrant/vagrant/viewscript.sh
 sudo ckan datastore set-permissions | sudo -u postgres psql --set ON_ERROR_STOP=1
 
 echo "Initializing CKAN database"
+source /usr/lib/ckan/default/bin/activate
+cd /usr/lib/ckan/default/src/ckan
 sudo ckan db init
-
 paster --plugin=ckanext-harvest harvester initdb --config=/etc/ckan/default/production.ini
-
+paster --plugin=ckanext-ytp-comments initdb --config=/etc/ckan/default/production.ini
 
 echo "Enabling filestore with local storage"
 sudo mkdir -p /var/lib/ckan/default
